@@ -94,8 +94,14 @@ module AutoCompleteMacrosHelper
   # The auto_complete_result can of course also be called from a view belonging to the 
   # auto_complete action if you need to decorate it further.
   def auto_complete_result(entries, field, phrase = nil)
-    return unless entries
-    items = entries.map { |entry| content_tag("li", phrase ? highlight(entry[field], phrase) : h(entry[field])) }
+    #return unless entries
+    #items = entries.map { |entry| content_tag("li", phrase ? highlight(entry[field], phrase) : h(entry[field])) }
+    #content_tag("ul", items.uniq)
+    
+    items = []
+    entries.each do |entry|
+    	items << content_tag("li", phrase ? highlight(entry.send field, phrase) : h(entry.send field))
+    end
     content_tag("ul", items.uniq)
   end
   
